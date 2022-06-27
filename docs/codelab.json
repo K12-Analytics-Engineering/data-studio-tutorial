@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-06-27T15:26:09Z",
+  "id": "",
+  "duration": 0,
+  "title": "Data Studio for K12",
+  "authors": "Marcos Alcozer",
+  "summary": "In this codelab, you'll learn the basics of Google Data Studio through the lens of K12 data.",
+  "source": "https://docs.google.com/document/d/1zk3-ZWikiG9Ws6O22OYXypRSIwDt2-BFecNsM6JVLPQ",
+  "theme": "data",
+  "status": [
+    "in development"
+  ],
+  "category": [
+    "Data"
+  ],
+  "tags": [
+    "k12"
+  ],
+  "url": ""
+}
