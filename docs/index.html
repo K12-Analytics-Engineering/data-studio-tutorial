@@ -29,7 +29,7 @@
     
       <google-codelab-step label="Introduction" duration="0">
         <p class="image-container"><img style="width: 442.50px" src="img/8101b9a206157cfe.jpeg"></p>
-<p><strong>Last Updated: </strong>2022-06-24</p>
+<p><strong>Last Updated: </strong>2022-06-28</p>
 <p>This Codelab is designed to introduce you to Google Data Studio, providing you background on the various components that make up the product as well as embedded activities that help you get hands on with it.</p>
 <p>Data Studio was released in May of 2016 originally as a free, data visualization product focused on helping people gain insight into their marketing data. However, as it goes in K12 education, if an educator finds a tool that can help them with their work, you bet it&#39;s going to spread like wildfire. Very quickly, teachers started connecting their various Google Sheets to Data Studio to visualize the various student trackers and assessment data files they had in their Google Drive.</p>
 <p>Over time Google started building out Data Studio to support the needs of educators and data folks in schools. Features such as conditional formatting and filtering data by email were built based on direct feedback from people in schools.</p>
@@ -67,13 +67,15 @@
     
       <google-codelab-step label="Data sources" duration="0">
         <p>Before we talk about building a report, let&#39;s start with data sources. Data sources are what sit between the actual data (think Google Sheet or table in BigQuery) and the chart in a Data Studio report. A data source can be created by going to <a href="https://datastudio.google.com" target="_blank">datastudio.google.com</a> and clicking Create → Data Source, but is more often created as the first step after creating a new report.</p>
-<p>Data sources use connectors to fetch data from a specific program. In this Codelab we will be using the Google Sheets connector. However, there are over 20 Google provided connectors as well as 600 community connectors.</p>
+<p>Data sources use connectors to fetch data from a specific program. In this Codelab we will be using the Google Sheets connector. There are over 20 Google provided connectors as well as 600 community connectors.</p>
 <h2 is-upgraded>Modeling your data</h2>
 <p>After connecting a Google Sheet or database table to a data source, you will see an interface similar to the one below. This is your place to model your data before using it in a report. It&#39;s important to always review this page before starting to build in Data Studio. Often, odd behavior seen in Data Studio can be traced back to an issue with how the data was modeled in the data source.</p>
 <p class="image-container"><img style="width: 624.00px" src="img/f631f4f2ec2527ba.png"></p>
 <h3 is-upgraded>Field names, data types, and default aggregation</h3>
 <p>It&#39;s recommended that field names be set in your Google Sheet, BigQuery table, or other program, but that is not always possible. Sometimes you&#39;re working with a Sheet that has a column name you don&#39;t control. Perhaps you&#39;re given a Sheet with a column name <code>SName</code> and you don&#39;t have permission to rename it to <code>Student First Name</code> in the Sheet itself. Your data source allows you to rename the field. To change the name, click the field and type a new one.</p>
 <p>A field&#39;s data type tells Data Studio what kind of data to expect when processing the field. Data type determines how the data appears in your reports, which operations are allowed for it, and which are not. For example, you can&#39;t apply an arithmetic function to a Text field, or use a Number field as the date range dimension in a report. Use the drop-down menu to change a field&#39;s data type.</p>
+<aside class="special"><p><strong>Tip: </strong>For Data Sources that connect to BigQuery. The field types should align with data types in BigQuery. If a field in BigQuery is a string, do not recast it to a number in Data Studio. You must cast it to a number in BigQuery. Failure to do so will cause components in your report to break and show vague errors.</p>
+</aside>
 <p>Aggregation is the method by which a field&#39;s data is summarized. A field&#39;s default aggregation method in the data source is applied when you use that field as a metric in a chart. If you use the field as a dimension, then you&#39;ll group the chart by that field instead. Report editors can change this at the chart level.</p>
 <h3 is-upgraded>Dimensions and metrics</h3>
 <p>Throughout Data Studio, when creating and configuring charts you will see data referred to as dimensions and metrics. It is important to understand the difference to ensure a respective field is used properly.</p>
@@ -122,7 +124,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Example: average daily attendance" duration="0">
-        <p>Let&#39;s imagine we want to rollup our attendance dataset shown on the previous page to provide us with each student&#39;s average daily attendance. We are going to walk through the steps at a high level and will be covering the concepts again later in this tutorial when you&#39;re working with sample data.</p>
+        <p>Let&#39;s imagine we want to rollup our attendance dataset shown on the previous page to provide us with each student&#39;s average daily attendance. We are going to walk through the steps at a high level and will be covering the concepts again later in this tutorial whenworking with sample data.</p>
 <p>To do this we need to leverage calculated fields to create new metrics. Below is our goal. We want to create a table in Data Studio that uses the <code>Student Name</code> <strong>dimension</strong> as well as a <strong>metric</strong> called <code>Average Daily Attendance</code>.</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p>Student Name</p>
@@ -137,22 +139,31 @@
 </table>
 <aside class="warning"><p><strong>Note:</strong> In this example, average daily attendance (ADA) is defined as the sum of all days present divided by the total number of days enrolled. If we are 10 school days into the year and the student has been present for 8 of them, their ADA is 80%</p>
 </aside>
-<p>Calculated fields can be daisy chained together allowing the output of one field to be used in another. This allows for a modular design that allows data sources to be more easily troubleshot in the future should that be needed.</p>
+<p>Calculated fields can be daisy-chained together allowing the output of one field to be used in another. This allows for a modular design that results in data sources that are easier to troubleshoot.</p>
 <p>The first metric we will create is <code>Total Absences</code>. This metric is created by summing up all absence event durations. This by itself would sum up all records in a dataset. However, using this in conjunction with the student name dimension sums up absence event durations for each respective student.</p>
 <p><code>Total Absences</code></p>
 <pre><code>SUM(Absence Event Duration)</code></pre>
-<p>We can now use the newly created field to get a student&#39;s apportionment. Apportionment being the number of days a student has been present.</p>
+<p>We can now use the newly created field to get a student&#39;s apportionment. Apportionment being the number of days a student has been present. To get that value we must count the number of days a student has been enrolled and subtract their total absences.</p>
 <p><code>Apportionment</code></p>
 <pre><code>(COUNT(1) - Total Absences)</code></pre>
-<p>Now that we have have <code>Apportionment</code>, we can create our final metric, <code>Average Daily Attendance</code>. </p>
+<p>Now that we have <code>Apportionment</code>, we can create our final metric, <code>Average Daily Attendance</code>. </p>
 <p><code>Average Daily Attendance</code></p>
 <pre><code>Apportionment / Record Count</code></pre>
+<p>This allows us to create the table shown above using the student&#39;s name as the dimension and our new average daily attendance calculated field as the metric.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Connect NWEA MAP as a data source" duration="0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed venenatis justo. Nunc sapien ex, aliquam vel sagittis ut, sodales ut ante. Quisque ac nisl ex. Cras ultrices congue posuere. Donec sit amet mi eu arcu sodales luctus ut et sem. Nullam imperdiet cursus leo ac feugiat. Curabitur iaculis euismod ante. Vestibulum dapibus ex nec ex malesuada dictum. Cras venenatis, purus id consectetur semper, neque libero porta lacus, et molestie neque risus a massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris mollis est nec tortor vehicula scelerisque.</p>
+        <p>We are now going to connect a sample dataset to Data Studio and you will follow along.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TEA Ed-Fi initiative" duration="0">
+        <p>Lorem</p>
+<p>Sample YouTube video</p>
+<iframe class="youtube-video" src="https://www.youtube.com/embed/1GXV9sGUnGQ?rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
       </google-codelab-step>
