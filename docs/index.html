@@ -116,7 +116,7 @@
 </aside>
 <p><strong>Dimensions</strong> describe or categorize your data. Dimensions contain unaggregated data. Dimensions appear as green fields in the data source editor and report properties panel. All of the fields above will show in Data Studio as a dimension. <code>Student Name</code> is a clear example of a dimension. This is a field that is describing the student.</p>
 <p><strong>Metrics</strong> measure your dimensions. Metrics contain aggregated data. Metrics appear as blue fields in the data source editor and report properties panel.</p>
-<p><strong>Calculated fields</strong> are fields you create by applying functions, operators, and/or branching logic to your data. A calculated field appears as a metric or dimension depending on the output of the formula.</p>
+<p><strong>Calculated fields</strong> are fields you create by applying functions, operators, and/or branching logic to your data. A calculated field appears as a metric or dimension depending on the output of the formula. The full list of supported functions can be found <a href="https://support.google.com/datastudio/table/6379764?hl=en" target="_blank">here</a>.</p>
 <p>The image below highlights where in the data source you can click <code>Add a field</code> to create a new calculated field.</p>
 <p class="image-container"><img style="width: 624.00px" src="img/6e91a2e6029f8a26.png"></p>
 
@@ -276,9 +276,59 @@
       </google-codelab-step>
     
       <google-codelab-step label="Project: STAAR report" duration="0">
-        <p>You will be recreating the report shown and accessed via the link below.</p>
+        <p>You will now work on recreating the report shown and accessed via the link below. This project is designed to help you learn how to build various charts in Data Studio and create calculated fields when you need to go below aggregating a specific column.</p>
+<ul>
+<li>Student will be able to rename data source columns, change data types, and change default aggregations</li>
+<li>Student will be able to create calculated fields</li>
+<li>Student will be able to create filters and apply them to charts as a way of scoping the data shown</li>
+<li>Student will be able to differentiate between aggregating a column in a chart&#39;s config and aggregating a column in a calculated field, and when to use which</li>
+<li>Student will be able to create report-level objects</li>
+<li>Student will be able to change report themes and colors</li>
+</ul>
 <p><a href="https://datastudio.google.com/reporting/3fc8e6ed-74c7-4ec4-8c0b-8db7d7f65893" target="_blank">https://datastudio.google.com/reporting/3fc8e6ed-74c7-4ec4-8c0b-8db7d7f65893</a></p>
 <p class="image-container"><img style="width: 624.00px" src="img/c1b881cc720912e1.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tips" duration="0">
+        <p>The following sections contain various tips that should only be accessed if you&#39;ve found yourself stuck when trying to recreate the sample report.</p>
+<aside class="warning"><p>Only proceed if you&#39;ve found yourself stuck and need a tip in order to proceed.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tip 01" duration="0">
+        <p>The <code>student_result</code> column in the Google Sheet has numbers and text in it. This makes sense because there are times a student&#39;s result is a number (scale score) and times it is not (proficiency level). However, to do things like average the scale score values, you will need a version of this column that is a number. In your Data Studio data source, you will be to:</p>
+<ol type="1" start="1">
+<li>Set <code>Student Result</code> to Type Number</li>
+<li>Create a calculated field, <code>Numeric Student Result</code>, with the formula below.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img/664a7e698fc0a468.png"></p>
+<p><code>Numeric Student Result</code></p>
+<pre><code>CAST(Student Result AS NUMBER)</code></pre>
+<p>You will now be able to use <code>Numeric Student Result</code> when you need to average student scale scores.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tip 02" duration="0">
+        <p>This tip is related to the chart below. This chart shows the percentage of tutoring students who are proficient in Math and Reading. To be proficient, a student must score a Meets or Masters.</p>
+<p class="image-container"><img style="width: 463.50px" src="img/dc28dfb2269bb42a.png"></p>
+<p>This is one of the more challenging charts to create in the report because it requires you to create filters and a calculated field. A calculated field, <code>Is Proficient?</code>, should be created that returns a <code>1</code> if the student is <em>Meets</em> or <em>Masters</em>, and a <code>0</code> if they are not.</p>
+<p><code>Is Proficient?</code></p>
+<pre><code>case Student Result
+    when &#39;Meets&#39; then 1
+    when &#39;Masters&#39; then 1
+    else 0
+end</code></pre>
+<p><code>Is Proficient?</code> provides the count of proficient students and with a dimension of <code>Subject</code>, gets us halfway there. For example,</p>
+<p class="image-container"><img style="width: 624.00px" src="img/8fd9aafbc61775f5.png"></p>
+<p>To create the actual percentage of tutoring students who are proficient in Math and Reading, the newly created calculated field needs to be daisy-chained into a 2nd one:</p>
+<p><code>Percent of Students who are Proficient</code></p>
+<pre><code>SUM(Is Proficient?) / COUNT(1)</code></pre>
+<p>The calculated field above sums up the number of proficient students and divides it by the total number of students.</p>
 
 
       </google-codelab-step>
