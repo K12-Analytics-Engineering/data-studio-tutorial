@@ -29,8 +29,8 @@
     
       <google-codelab-step label="Introduction" duration="0">
         <p class="image-container"><img style="width: 442.50px" src="img/8101b9a206157cfe.jpeg"></p>
-<p><strong>Last Updated: </strong>2022-06-28</p>
-<p>This Codelab is designed to introduce you to Google Data Studio, providing you background on the various components that make up the product as well as embedded activities that help you get hands on with it.</p>
+<p><strong>Last Updated: </strong>2022-07-14</p>
+<p>This Codelab is designed to introduce you to Google Data Studio, providing background on the various components that make up the product as well as embedded activities that help you get hands on with it.</p>
 <p>Data Studio was released in May of 2016 originally as a free, data visualization product focused on helping people gain insight into their marketing data. However, as it goes in K12 education, if an educator finds a tool that can help them with their work, you bet it&#39;s going to spread like wildfire. Very quickly, teachers started connecting their various Google Sheets to Data Studio to visualize the various student trackers and assessment data files they had in their Google Drive.</p>
 <p>Over time Google started building out Data Studio to support the needs of educators and data folks in schools. Features such as conditional formatting and filtering data by email were built based on direct feedback from people in schools.</p>
 <p>Today Data Studio remains a powerful tool to turn data into insights. This Codelab will help you get comfortable navigating the product. Let&#39;s get to it!</p>
@@ -40,7 +40,7 @@
     
       <google-codelab-step label="About the author" duration="0">
         <p class="image-container"><img style="width: 157.36px" src="img/2cf5e7d40bcaafe.png"></p>
-<p>Hi. I am Marcos Alcozer and I am the author of this Codelab. I am a K12 analytics engineer, solution architect for the <a href="https://www.ed-fi.org/" target="_blank">Ed-Fi Alliance</a>, a husband, a dad, and so many other things.</p>
+<p>Hi. I am Marcos Alcozer and I am the author of this Codelab. I am a K12 analytics engineer and  solution architect for the <a href="https://www.ed-fi.org/" target="_blank">Ed-Fi Alliance</a>.</p>
 <p>I work to help folks in districts become analytics engineers so they can build data dashboards and reports that provide insights back to school leaders and educators. I also maintain open source code that deploys a full analytics data stack in Google Cloud so no one has to start at square one. Below is a diagram of that infrastructure. You&#39;ll notice Data Studio on the right. I have been working in it since 2016 and see it as the ideal data visualization tool for data folks in K12.</p>
 <ul>
 <li><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSAUtZ0bjHTBG-Fux1uuISpk0xlr-zFv1blq2cAxg5HiztZ55JXyd8h6YIco0bjIesaxzM3nBF9EMtu/pubhtml?gid=0&single=true" target="_blank">K12 analytics engineer learning journey</a></li>
@@ -60,26 +60,26 @@
 <li>Collaborate on reports with your team.</li>
 <li>Speed up your report creation process with built-in sample reports.</li>
 </ul>
-<p>Data Studio makes it easy to combine, transform, and visualize the data you likely already have in Google Sheets. When you&#39;re ready to share, Data Studio uses the same sharing process as Docs, Sheets, Slides, and others.</p>
+<p>Data Studio makes it easy to combine, transform, and visualize the data you likely already have in Google Sheets. When you&#39;re ready to share, Data Studio uses the same sharing process as a Google Doc.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Data sources" duration="0">
-        <p>Before we talk about building a report, let&#39;s start with data sources. Data sources are what sit between the actual data (think Google Sheet or table in BigQuery) and the chart in a Data Studio report. A data source can be created by going to <a href="https://datastudio.google.com" target="_blank">datastudio.google.com</a> and clicking Create → Data Source, but is more often created as the first step after creating a new report.</p>
+        <p>Before we talk about building a report, let&#39;s start with data sources. Data sources are what sit between the actual data (think Google Sheet or table in BigQuery) and the chart in a Data Studio report. A data source can be created by going to <a href="https://datastudio.google.com" target="_blank">datastudio.google.com</a> and clicking Create → Data Source, but is more often created as the first step when creating a new report.</p>
 <p>Data sources use connectors to fetch data from a specific program. In this Codelab we will be using the Google Sheets connector. There are over 20 Google provided connectors as well as 600 community connectors.</p>
 <h2 is-upgraded>Modeling your data</h2>
 <p>After connecting a Google Sheet or database table to a data source, you will see an interface similar to the one below. This is your place to model your data before using it in a report. It&#39;s important to always review this page before starting to build in Data Studio. Often, odd behavior seen in Data Studio can be traced back to an issue with how the data was modeled in the data source.</p>
 <p class="image-container"><img style="width: 624.00px" src="img/f631f4f2ec2527ba.png"></p>
 <h3 is-upgraded>Field names, data types, and default aggregation</h3>
 <p>It&#39;s recommended that field names be set in your Google Sheet, BigQuery table, or other program, but that is not always possible. Sometimes you&#39;re working with a Sheet that has a column name you don&#39;t control. Perhaps you&#39;re given a Sheet with a column name <code>SName</code> and you don&#39;t have permission to rename it to <code>Student First Name</code> in the Sheet itself. Your data source allows you to rename the field. To change the name, click the field and type a new one.</p>
-<p>A field&#39;s data type tells Data Studio what kind of data to expect when processing the field. Data type determines how the data appears in your reports, which operations are allowed for it, and which are not. For example, you can&#39;t apply an arithmetic function to a Text field, or use a Number field as the date range dimension in a report. Use the drop-down menu to change a field&#39;s data type.</p>
-<aside class="special"><p><strong>Tip: </strong>For Data Sources that connect to BigQuery. The field types should align with data types in BigQuery. If a field in BigQuery is a string, do not recast it to a number in Data Studio. You must cast it to a number in BigQuery. Failure to do so will cause components in your report to break and show vague errors.</p>
+<p>A field&#39;s data type tells Data Studio what kind of data to expect when processing the field. Data type determines how the data appears in your reports, which operations are allowed on it, and which are not. For example, you can&#39;t apply an arithmetic function to a Text field, or use a Number field as the date range dimension in a report. Use the drop-down menu to change a field&#39;s data type.</p>
+<aside class="special"><p><strong>Tip: </strong>For Data Sources that connect to BigQuery, the field types should align with data types in BigQuery. If a field in BigQuery is a string, do not recast it to a number in Data Studio. You must cast it to a number in BigQuery. Failure to do so will cause components in your report to break and show vague errors.</p>
 </aside>
-<p>Aggregation is the method by which a field&#39;s data is summarized. A field&#39;s default aggregation method in the data source is applied when you use that field as a metric in a chart. If you use the field as a dimension, then you&#39;ll group the chart by that field instead. Report editors can change this at the chart level.</p>
+<p>Aggregation is the method by which a field&#39;s data is summarized. A field&#39;s default aggregation method in the data source is applied when you use that field as a metric in a chart. If you use the field as a dimension, then you&#39;ll group the chart by that field. This can also be changed at the chart level.</p>
 <h3 is-upgraded>Dimensions and metrics</h3>
-<p>Throughout Data Studio, when creating and configuring charts you will see data referred to as dimensions and metrics. It is important to understand the difference to ensure a respective field is used properly.</p>
-<p>Let&#39;s imagine we are using the dataset below. This is a student attendance dataset that is related to daily attendance. It is one row per student per date enrolled and provides the attendance mark a student received for each date as well as an absence event duration.</p>
+<p>Throughout Data Studio, when creating and configuring charts you will see data referred to as dimensions and metrics. It is important to understand the difference to ensure a specific field is used properly.</p>
+<p>Let&#39;s imagine are using the dataset below. This is a student attendance dataset that is related to daily attendance. It is one row per student per date enrolled and provides the attendance mark a student received for each date as well as an absence event duration.</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p>Student Name</p>
 </td><td colspan="1" rowspan="1"><p>Date</p>
@@ -112,7 +112,7 @@
 </td><td colspan="1" rowspan="1"><p>1</p>
 </td></tr>
 </table>
-<aside class="special"><p><strong>Tip: </strong>When possible, try to keep datasets in their most granular form. Data can always be aggregated (or rolled up) to the appropriate level, but cannot be disaggregated from how they come in. The level of granularity is referred to as the grain size. You will see that bringing attendance data in at this grain size is going to allow us to aggregate it in some powerful ways.</p>
+<aside class="special"><p><strong>Tip: </strong>When possible, try to keep datasets in their most granular form. Data can always be aggregated (or rolled up) to the appropriate level, but cannot be disaggregated from how it comes in. The level of granularity is referred to as the grain size. You will see that bringing attendance data in at this grain size is going to allow us to aggregate it in some powerful ways.</p>
 </aside>
 <p><strong>Dimensions</strong> describe or categorize your data. Dimensions contain unaggregated data. Dimensions appear as green fields in the data source editor and report properties panel. All of the fields above will show in Data Studio as a dimension. <code>Student Name</code> is a clear example of a dimension. This is a field that is describing the student.</p>
 <p><strong>Metrics</strong> measure your dimensions. Metrics contain aggregated data. Metrics appear as blue fields in the data source editor and report properties panel.</p>
@@ -124,8 +124,8 @@
       </google-codelab-step>
     
       <google-codelab-step label="Example: average daily attendance" duration="0">
-        <p>Let&#39;s imagine we want to rollup our attendance dataset shown on the previous page to provide us with each student&#39;s average daily attendance. We are going to walk through the steps at a high level and will be covering the concepts again later in this tutorial whenworking with sample data.</p>
-<p>To do this we need to leverage calculated fields to create new metrics. Below is our goal. We want to create a table in Data Studio that uses the <code>Student Name</code> <strong>dimension</strong> as well as a <strong>metric</strong> called <code>Average Daily Attendance</code>.</p>
+        <p>Let&#39;s imagine we want to rollup our attendance dataset shown on the previous page to provide us with each student&#39;s average daily attendance. We are going to walk through the steps at a high level and will be covering the concepts again later in this tutorial when working with sample data.</p>
+<p>To do this we need to leverage calculated fields to create new metrics. Below is our goal. We want to create a table in Data Studio that uses the <code>Student Name</code> <strong>dimension</strong> as well as a <strong>metric</strong>, <code>Average Daily Attendance</code>.</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p>Student Name</p>
 </td><td colspan="1" rowspan="1"><p>Average Daily Attendance</p>
@@ -140,10 +140,22 @@
 <aside class="warning"><p><strong>Note:</strong> In this example, average daily attendance (ADA) is defined as the sum of all days present divided by the total number of days enrolled. If we are 10 school days into the year and the student has been present for 8 of them, their ADA is 80%</p>
 </aside>
 <p>Calculated fields can be daisy-chained together allowing the output of one field to be used in another. This allows for a modular design that results in data sources that are easier to troubleshoot.</p>
-<p>The first metric we will create is <code>Total Absences</code>. This metric is created by summing up all absence event durations. This by itself would sum up all records in a dataset. However, using this in conjunction with the student name dimension sums up absence event durations for each respective student.</p>
+<p>The first metric we will create is <code>Total Absences</code>. This metric is created via a calculated field by summing up all absence event durations. This by itself would sum up all records in a dataset. However, using this in conjunction with the student name dimension sums up absence event durations for each respective student.</p>
 <p><code>Total Absences</code></p>
 <pre><code>SUM(Absence Event Duration)</code></pre>
-<p>We can now use the newly created field to get a student&#39;s apportionment. Apportionment being the number of days a student has been present. To get that value we must count the number of days a student has been enrolled and subtract their total absences.</p>
+<p>If we stop here and create a table, we would be able to create the table below.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Student Name</p>
+</td><td colspan="1" rowspan="1"><p>Total Absences</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Hermione Granger</p>
+</td><td colspan="1" rowspan="1"><p>3</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Ron Weasley</p>
+</td><td colspan="1" rowspan="1"><p>8</p>
+</td></tr>
+</table>
+<p>We can use the newly created field to get a student&#39;s apportionment. Apportionment being the number of days a student has been present. To get that value we must count the number of days a student has been enrolled and subtract their total absences.</p>
 <p><code>Apportionment</code></p>
 <pre><code>(COUNT(1) - Total Absences)</code></pre>
 <p>Now that we have <code>Apportionment</code>, we can create our final metric, <code>Average Daily Attendance</code>. </p>
@@ -154,28 +166,119 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Connect NWEA MAP as a data source" duration="0">
-        <p>We are now going to connect a sample dataset to Data Studio and you will follow along.</p>
+      <google-codelab-step label="Copy sample data" duration="0">
+        <p>OK, that is enough on the conceptual side! Let&#39;s get our hands dirty. This Codelab will use a Google Sheet of sample data. Click the button below to make a copy of the sample data and let&#39;s talk about it.</p>
+<p><a href="https://docs.google.com/spreadsheets/d/1EqRZJ2ss4-C1hb9-bzYONKjBxW6Ni9GrKFKZwkgyzE4/copy" target="_blank"><paper-button class="colored" raised>Copy Sample Data</paper-button></a></p>
+<p>This dataset is fictional student assessment data modeled after TEA&#39;s STAAR assessment. This dataset is ideal for Data Studio because it is long, not wide. What does that mean?</p>
+<p>Let&#39;s look at the sample data below. This is an example of wide data. We have a column, <code>2021 Scale Score</code>, that contains the student&#39;s assessment result for the school year 2021. The result we are showing here is their scale score. We then have additional columns for other school years and other assessment reporting methods (Scale Score and Proficiency Level).</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Student Unique Id</p>
+</td><td colspan="1" rowspan="1"><p>Subject</p>
+</td><td colspan="1" rowspan="1"><p>2021 Scale Score</p>
+</td><td colspan="1" rowspan="1"><p>2021 Proficiency Level</p>
+</td><td colspan="1" rowspan="1"><p>2022 Scale Score</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Hermione Granger</p>
+</td><td colspan="1" rowspan="1"><p>Reading</p>
+</td><td colspan="1" rowspan="1"><p>1878</p>
+</td><td colspan="1" rowspan="1"><p>Masters</p>
+</td><td colspan="1" rowspan="1"><p>1900</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Ron Weasley</p>
+</td><td colspan="1" rowspan="1"><p>Math</p>
+</td><td colspan="1" rowspan="1"><p>885</p>
+</td><td colspan="1" rowspan="1"><p>Approaches</p>
+</td><td colspan="1" rowspan="1"><p>850</p>
+</td></tr>
+</table>
+<p>The sample data below takes the information from above and displays it in a long format. We have moved the school year and assessment report method to their own columns. This creates a dataset with additional rows. We now have one row per student per assessment per assessment measure.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Student Unique Id</p>
+</td><td colspan="1" rowspan="1"><p>School Year</p>
+</td><td colspan="1" rowspan="1"><p>Subject</p>
+</td><td colspan="1" rowspan="1"><p>Reporting Method</p>
+</td><td colspan="1" rowspan="1"><p>Student Result</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Hermione Granger</p>
+</td><td colspan="1" rowspan="1"><p>2021</p>
+</td><td colspan="1" rowspan="1"><p>Reading</p>
+</td><td colspan="1" rowspan="1"><p>Scale Score</p>
+</td><td colspan="1" rowspan="1"><p>1878</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Hermione Granger</p>
+</td><td colspan="1" rowspan="1"><p>2021</p>
+</td><td colspan="1" rowspan="1"><p>Reading</p>
+</td><td colspan="1" rowspan="1"><p>Proficiency Level</p>
+</td><td colspan="1" rowspan="1"><p>Masters</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Hermione Granger</p>
+</td><td colspan="1" rowspan="1"><p>2022</p>
+</td><td colspan="1" rowspan="1"><p>Reading</p>
+</td><td colspan="1" rowspan="1"><p>Scale Score</p>
+</td><td colspan="1" rowspan="1"><p>1900</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Ron Weasley</p>
+</td><td colspan="1" rowspan="1"><p>2021</p>
+</td><td colspan="1" rowspan="1"><p>Math</p>
+</td><td colspan="1" rowspan="1"><p>Scale Score</p>
+</td><td colspan="1" rowspan="1"><p>885</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Ron Weasley</p>
+</td><td colspan="1" rowspan="1"><p>2021</p>
+</td><td colspan="1" rowspan="1"><p>Math</p>
+</td><td colspan="1" rowspan="1"><p>Proficiency Level</p>
+</td><td colspan="1" rowspan="1"><p>Approaches</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Ron Weasley</p>
+</td><td colspan="1" rowspan="1"><p>2022</p>
+</td><td colspan="1" rowspan="1"><p>Math</p>
+</td><td colspan="1" rowspan="1"><p>Scale Score</p>
+</td><td colspan="1" rowspan="1"><p>850</p>
+</td></tr>
+</table>
+<p>This sample dataset has a few other nice things to it:</p>
+<ul>
+<li>Columns such as <code>race_ethnicity_roll_up</code> are showing the values we&#39;d want to see in Data Studio and not showing a value such as a race code. This means we do not have to remap the values in the Data Studio data source.</li>
+<li>Contextual information (<code>student_unique_id</code>,  <code>has_iep</code>, etc), never causes duplicate rows where a measure such as a student&#39;s scale score is duplicated and listed multiple times. This means we can do things like average or count a column and not get incorrect results when aggregating the data.</li>
+</ul>
+<p>This section is complete when you&#39;ve made a copy of the sample dataset. Let&#39;s move on!</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="TEA Ed-Fi initiative" duration="0">
-        <p>Lorem</p>
-<p>Sample YouTube video</p>
-<iframe class="youtube-video" src="https://www.youtube.com/embed/1GXV9sGUnGQ?rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <google-codelab-step label="Create your report and data source" duration="0">
+        <p>Let&#39;s create a new report:</p>
+<ol type="1" start="1">
+<li>Head to <a href="https://datastudio.google.com/" target="_blank">datastudio.google.com</a></li>
+<li>Click Create</li>
+<li>Click Report</li>
+</ol>
+<p class="image-container"><img style="width: 404.50px" src="img/7a5572e9e855a39d.png"></p>
+<p>This will create a Data Studio report and open a panel asking you to add data to your report. In this Codelab, we will be using the Google Sheets connector.</p>
+<ol type="1" start="1">
+<li>Select the Google Sheets connector</li>
+<li>Click Authorize to connect to your Google Sheets</li>
+<li>Select the Google Sheet you created on the previous page</li>
+<li>Click Add</li>
+</ol>
+<p>This section is complete when you&#39;ve connected the Google Sheet and you&#39;re being asked to configure your data source.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Performance" duration="0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed venenatis justo. Nunc sapien ex, aliquam vel sagittis ut, sodales ut ante. Quisque ac nisl ex. Cras ultrices congue posuere. Donec sit amet mi eu arcu sodales luctus ut et sem. Nullam imperdiet cursus leo ac feugiat. Curabitur iaculis euismod ante. Vestibulum dapibus ex nec ex malesuada dictum. Cras venenatis, purus id consectetur semper, neque libero porta lacus, et molestie neque risus a massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris mollis est nec tortor vehicula scelerisque.</p>
+      <google-codelab-step label="Model your data" duration="0">
+        <p>Data Studio will now show the data source configuration page. As mentioned earlier in this Codelab, this is your place to model your data before using it in a report.</p>
+<p>This is a good time to rename your columns so they are in a more readable format. For example, you&#39;ll notice in the screenshot below that <code>assessment_family</code> has been renamed to <code>Assessment Family</code>. Take a pass at the data types and default aggregation as well. You can always go back and make adjustments as needed.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/5b5aba9f82824a7b.png"></p>
+<p>This section is complete when you&#39;ve finished renaming your columns and have clicked <strong>Done </strong>to close the data source.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Data warehousing" duration="0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed venenatis justo. Nunc sapien ex, aliquam vel sagittis ut, sodales ut ante. Quisque ac nisl ex. Cras ultrices congue posuere. Donec sit amet mi eu arcu sodales luctus ut et sem. Nullam imperdiet cursus leo ac feugiat. Curabitur iaculis euismod ante. Vestibulum dapibus ex nec ex malesuada dictum. Cras venenatis, purus id consectetur semper, neque libero porta lacus, et molestie neque risus a massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris mollis est nec tortor vehicula scelerisque.</p>
+      <google-codelab-step label="Project: STAAR report" duration="0">
+        <p>You will be recreating the report shown and accessed via the link below.</p>
+<p><a href="https://datastudio.google.com/reporting/3fc8e6ed-74c7-4ec4-8c0b-8db7d7f65893" target="_blank">https://datastudio.google.com/reporting/3fc8e6ed-74c7-4ec4-8c0b-8db7d7f65893</a></p>
+<p class="image-container"><img style="width: 624.00px" src="img/c1b881cc720912e1.png"></p>
 
 
       </google-codelab-step>
