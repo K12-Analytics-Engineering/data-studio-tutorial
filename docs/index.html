@@ -29,7 +29,7 @@
     
       <google-codelab-step label="Introduction" duration="0">
         <p class="image-container"><img style="width: 442.50px" src="img/8101b9a206157cfe.jpeg"></p>
-<p><strong>Last Updated: </strong>2022-07-14</p>
+<p><strong>Last Updated: </strong>2022-07-28</p>
 <p>This Codelab is designed to introduce you to Google Data Studio, providing background on the various components that make up the product as well as embedded activities that help you get hands on with it.</p>
 <p>Data Studio was released in May of 2016 originally as a free, data visualization product focused on helping people gain insight into their marketing data. However, as it goes in K12 education, if an educator finds a tool that can help them with their work, you bet it&#39;s going to spread like wildfire. Very quickly, teachers started connecting their various Google Sheets to Data Studio to visualize the various student trackers and assessment data files they had in their Google Drive.</p>
 <p>Over time Google started building out Data Studio to support the needs of educators and data folks in schools. Features such as conditional formatting and filtering data by email were built based on direct feedback from people in schools.</p>
@@ -41,7 +41,7 @@
       <google-codelab-step label="About the author" duration="0">
         <p class="image-container"><img style="width: 157.36px" src="img/2cf5e7d40bcaafe.png"></p>
 <p>Hi. I am Marcos Alcozer and I am the author of this Codelab. I am a K12 analytics engineer and  solution architect for the <a href="https://www.ed-fi.org/" target="_blank">Ed-Fi Alliance</a>.</p>
-<p>I work to help folks in districts become analytics engineers so they can build data dashboards and reports that provide insights back to school leaders and educators. I also maintain open source code that deploys a full analytics data stack in Google Cloud so no one has to start at square one. Below is a diagram of that infrastructure. You&#39;ll notice Data Studio on the right. I have been working in it since 2016 and see it as the ideal data visualization tool for data folks in K12.</p>
+<p>I help folks in districts become analytics engineers so they can build data dashboards and reports that provide insights back to school leaders and educators. I also maintain open source code that deploys a full analytics data stack in Google Cloud so no one has to start at square one. Below is a diagram of that infrastructure. You&#39;ll notice Data Studio on the right. I have been working in it since 2016 and see it as the ideal data visualization tool for data folks in K12.</p>
 <ul>
 <li><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSAUtZ0bjHTBG-Fux1uuISpk0xlr-zFv1blq2cAxg5HiztZ55JXyd8h6YIco0bjIesaxzM3nBF9EMtu/pubhtml?gid=0&single=true" target="_blank">K12 analytics engineer learning journey</a></li>
 <li><a href="http://k12analyticsengineering.dev" target="_blank">http://k12analyticsengineering.dev</a></li>
@@ -276,7 +276,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Project: STAAR report" duration="0">
-        <p>You will now work on recreating the report shown and accessed via the link below. This project is designed to help you learn how to build various charts in Data Studio and create calculated fields when you need to go below aggregating a specific column.</p>
+        <p>You will now work on recreating the report shown and accessed via the link below. This project is designed to help you learn how to build various charts in Data Studio and create calculated fields when you need to perform an aggregation of a specific column. Learning outcomes for this project:</p>
 <ul>
 <li>Student will be able to rename data source columns, change data types, and change default aggregations</li>
 <li>Student will be able to create calculated fields</li>
@@ -291,29 +291,52 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Tips" duration="0">
-        <p>The following sections contain various tips that should only be accessed if you&#39;ve found yourself stuck when trying to recreate the sample report.</p>
-<aside class="warning"><p>Only proceed if you&#39;ve found yourself stuck and need a tip in order to proceed.</p>
+      <google-codelab-step label="Creating your first chart" duration="0">
+        <aside class="special"><p><strong>Optional: </strong>This section is optional. If you learn best by diving in and exploring, you may stop here and work in Data Studio.</p>
 </aside>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Tip 01" duration="0">
-        <p>The <code>student_result</code> column in the Google Sheet has numbers and text in it. This makes sense because there are times a student&#39;s result is a number (scale score) and times it is not (proficiency level). However, to do things like average the scale score values, you will need a version of this column that is a number. In your Data Studio data source, you will be to:</p>
+<p>Let&#39;s create the first chart together. We are going to create a column chart that shows the average STAAR score for Math and Reading for only those students who have received tutoring.</p>
+<p class="image-container"><img style="width: 435.50px" src="img/c479e187df4d1343.png"></p>
+<p>Along the top of Data Studio is a menu bar. Click on <img style="width: 94.68px" src="img/f3a03d6b4b03dde1.png"> and select the column chart type. As you hover over the various chart types, Data Studio will show a tool-tip with the chart type&#39;s name. Drop the chart anywhere on the canvas.</p>
+<p>Let&#39;s start configuring our chart.</p>
+<h3 is-upgraded>Filters</h3>
+<p>This chart is not visualizing the entire dataset. This chart is only looking at students who have received tutoring and it&#39;s only looking at student scale scores. This means we need to apply a filter to the chart. We want to reduce the data shown to report viewers.</p>
+<p>When a chart is selected in Data Studio, its configuration is shown on the right sidebar. This includes two important sections: setup and style. Setup is where you tell Data Studio what columns to use where and style is where you can change the visual aspects of the chart such as the column color.</p>
+<p>Create two filters under the chart&#39;s configuration.</p>
+<ul>
+<li><code>Scale score</code> should only include students if the <code>reporting_method</code> column is equal to <code>Scale score</code></li>
+<li><code>Has received tutoring</code> should only include students if the <code>has_received_tutoring</code> column is equal to <code>Yes</code></li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img/bf68d55ebcc1c4ba.png"></p>
+<h3 is-upgraded>Numeric student result</h3>
+<p>This chart has a metric that runs an average on the student scale scores. This can prove challenging because the <code>student_result</code> column in the Google Sheet has numbers and text in it. This makes sense because there are times a student&#39;s result is a number (scale score) and times it is not (proficiency level). However, to do things like average the scale score values, you will need a version of this column that is a number. In your Data Studio data source, you will be to:</p>
 <ol type="1" start="1">
-<li>Set <code>Student Result</code> to Type Number</li>
+<li>Set <code>Student Result</code> to type Text</li>
 <li>Create a calculated field, <code>Numeric Student Result</code>, with the formula below.</li>
 </ol>
 <p class="image-container"><img style="width: 624.00px" src="img/664a7e698fc0a468.png"></p>
 <p><code>Numeric Student Result</code></p>
 <pre><code>CAST(Student Result AS NUMBER)</code></pre>
 <p>You will now be able to use <code>Numeric Student Result</code> when you need to average student scale scores.</p>
+<h3 is-upgraded>Chart configuration</h3>
+<p>You are now ready to finish your chart&#39;s configuration.</p>
+<ul>
+<li><strong>Dimension </strong>should be set to <code>subject</code></li>
+<li><strong>Metric </strong>should be set to <code>Numeric Student Result</code> with an Average aggregation</li>
+</ul>
+<p>This section is complete when you&#39;ve recreated the chart above.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Tip 02" duration="0">
+      <google-codelab-step label="Tips" duration="0">
+        <p>The following sections contain various tips that should only be accessed if you&#39;ve found yourself stuck when trying to recreate the sample report.</p>
+<aside class="warning"><p>Only proceed if you&#39;ve found yourself stuck and need a tip in order to proceed. These tips are designed to help you if you get stuck, not as an instructional tool before that.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tip 01" duration="0">
         <p>This tip is related to the chart below. This chart shows the percentage of tutoring students who are proficient in Math and Reading. To be proficient, a student must score a Meets or Masters.</p>
 <p class="image-container"><img style="width: 463.50px" src="img/dc28dfb2269bb42a.png"></p>
 <p>This is one of the more challenging charts to create in the report because it requires you to create filters and a calculated field. A calculated field, <code>Is Proficient?</code>, should be created that returns a <code>1</code> if the student is <em>Meets</em> or <em>Masters</em>, and a <code>0</code> if they are not.</p>
